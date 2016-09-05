@@ -22,7 +22,7 @@ from cowrie.core import shlex
 class HoneyPotCommand(object):
     """
     """
-    def __init__(self, protocol, *args):
+    def __init__(self, stdout,protocol, *args):
         self.protocol = protocol
         self.args = list(args)
         self.environ = self.protocol.cmdstack[0].environ
