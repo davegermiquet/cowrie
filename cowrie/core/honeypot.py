@@ -22,9 +22,7 @@ from cowrie.core import shlex
 class HoneyPotCommand(object):
     """
     """
-
-
-    def __init__(self, stdout,protocol, *args):
+    def __init__(self, protocol, *args):
         self.protocol = protocol
         self.args = list(args)
         self.environ = self.protocol.cmdstack[0].environ
@@ -161,7 +159,6 @@ class HoneyPotCommand(object):
 class HoneyPotShell(object):
     """
     """
-
 
     def __init__(self, protocol, interactive=True):
         self.protocol = protocol
@@ -319,32 +316,32 @@ class HoneyPotShell(object):
         if not self.interactive:
             return
         # Example: srv03:~#
-        # prompt = '%s:%%(path)s' % self.protocol.hostname
+        #prompt = '%s:%%(path)s' % self.protocol.hostname
         # Example: root@svr03:~#     (More of a "Debianu" feel)
         prompt = '%s@%s:%%(path)s' % (self.protocol.user.username, self.protocol.hostname)
         # Example: [root@svr03 ~]#   (More of a "CentOS" feel)
-        # prompt = '[%s@%s %%(path)s]' % (self.protocol.user.username, self.protocol.hostname,)
+        #prompt = '[%s@%s %%(path)s]' % (self.protocol.user.username, self.protocol.hostname,)
         if not self.protocol.user.uid:
-            prompt += '# '  # "Root" user
+            prompt += '# '    # "Root" user
         else:
-            prompt += '$ '  # "Non-Root" user
+            prompt += '$ '    # "Non-Root" user
 
         path = self.protocol.cwd
         homelen = len(self.protocol.user.avatar.home)
         if path == self.protocol.user.avatar.home:
             path = '~'
-        elif len(path) > (homelen + 1) and \
-                        path[:(homelen + 1)] == self.protocol.user.avatar.home + '/':
+        elif len(path) > (homelen+1) and \
+                path[:(homelen+1)] == self.protocol.user.avatar.home + '/':
             path = '~' + path[homelen:]
         # Uncomment the three lines below for a 'better' CentOS look.
         # Rather than '[root@svr03 /var/log]#' is shows '[root@svr03 log]#'.
-        # path = path.rsplit('/', 1)[-1]
-        # if not path:
+        #path = path.rsplit('/', 1)[-1]
+        #if not path:
         #    path = '/'
 
         attrs = {'path': path}
         self.protocol.terminal.write(prompt % attrs)
-        self.protocol.ps = (prompt % attrs, '> ')
+        self.protocol.ps = (prompt % attrs , '> ')
 
 
     def eofReceived(self):
@@ -370,7 +367,7 @@ class HoneyPotShell(object):
         """
         log.msg('Received CTRL-D, exiting..')
 
-        cmdclass = self.protocol.commands['exit']
+        cmdclass =  self.protocol.commands['exit']
         pp = StdOutStdErrEmulationProtocol(self.protocol, cmdclass, None, None, None)
         self.protocol.call_command(pp, self.protocol.commands['exit'])
 
@@ -419,7 +416,7 @@ class HoneyPotShell(object):
         newbuf = ''
         if len(files) == 1:
             newbuf = ' '.join(l.split()[:-1] + \
-                              ['%s%s' % (basedir, files[0][fs.A_NAME])])
+                ['%s%s' % (basedir, files[0][fs.A_NAME])])
             if files[0][fs.A_TYPE] == fs.T_DIR:
                 newbuf += '/'
             else:
@@ -541,7 +538,6 @@ class StdOutStdErrEmulationProtocol(object):
             npcmdargs = self.next_command.cmdargs
             self.protocol.pp = self.next_command
             self.protocol.call_command(self.next_command, npcmd, *npcmdargs)
-
 
 
     def errConnectionLost(self):
