@@ -113,6 +113,8 @@ class HoneyPotCommand(object):
                 self.protocol.cmdstack[-1].showPrompt()
 
         except Exception as inst:
+            log.msg("Exception: " + str(inst))
+            log.msg("Command Stack: " + str(self.protocol.cmdstack))
             # ignore disregarded stack requests
             # Cmdstack could be gone already (wget + disconnect)
             pass
@@ -479,7 +481,6 @@ class StdOutStdErrEmulationProtocol(object):
     def removeFromStack(self):
         if not self.cmd_name == 'exit':
             service = self.protocol.cmdstack.pop(self.protocol.cmdstack.index(self.runningCommand))
-            service.exit()
 
 
     def set_protocol(self, protocol):
