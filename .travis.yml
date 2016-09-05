@@ -10,7 +10,7 @@ before_install:
 - sudo apt-get install -y libmpc-dev
 install: pip install -r requirements.txt
 before-script: export PYTHONPATH=$PYTHONPATH:$(pwd)
-script: pip install configparser;PYTHONPATH=${PWD};pwd;export PYTHONPATH;trial cowrie;env;ls -la;ls -la cowrie/test ; ls -la /cowrie/core
+script: pip install configparser;PYTHONPATH=${PWD};pwd;export PYTHONPATH;trial cowrie;env;ls -la;ls -la cowrie/test ; ls -la /cowrie/core;which trial
 notifications:
   email: false
   slack:
