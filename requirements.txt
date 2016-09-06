@@ -3,4 +3,4 @@ cryptography
 pyopenssl
 gmpy2
 service_identity
-ConfigParser
+configparser
