@@ -10,7 +10,7 @@ before_install:
 - sudo apt-get install -y libmpc-dev
 install: pip install --upgrade -r requirements.txt
 before-script: export PYTHONPATH=$PYTHONPATH:$(pwd)
-script: chmod +x ./test.sh ; ./test.sh
+script: trial cowrie
 notifications:
   email: false
   slack:
