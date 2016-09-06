@@ -43,7 +43,7 @@ from twisted.application.service import IServiceMaker
 from twisted.application import internet, service
 from twisted.cred import portal
 
-from cowrie import core
+from cowrie.cowrie import core
 from cowrie.core.config import readConfigFile
 import cowrie.core.realm
 import cowrie.core.checkers
