@@ -10,7 +10,7 @@ before_install:
 - sudo apt-get install -y libmpc-dev
 install: pip install --upgrade -r requirements.txt
 before-script: export PYTHONPATH=$PYTHONPATH:$(pwd)
-script: cd .. ; python /home/travis/virtualenv/python2.7.10/bin/trial cowrie;env;ls -la;ls -la cowrie/test ; ls -la /cowrie/core;which trial
+script: ./test.sh
 notifications:
   email: false
   slack:
